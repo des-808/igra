@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <vector>
 using namespace std;
 
 class IgroK {
@@ -21,10 +22,10 @@ public:
 	void set_money(int money) {  this->money = money;  }
 
 	IgroK() {
-		cout << "constructor " << this << endl;
+		cout << "constructor igrok" << this << endl;
 }
 	~IgroK(){//деструктор класса
-	cout << "destructor "<< this<< endl;
+	cout << "destructor igrok"<< this<< endl;
 	}
 	void print() {
 		cout << "factory :           " << get_factory() << endl;
@@ -44,19 +45,21 @@ struct Start_paraM {
 };
 
 class BanK {
-//private: IgroK igrok; // переменная для хранения экземпляра
+private:/// IgroK igrok; // переменная для хранения экземпляра
 public:
-	//bank(){}
-	~BanK(){}
+	~BanK(){ cout << "destructor bank" << this << endl; }
 	BanK() { // конструктор для инициализации (можно опустить)
+		cout << "constructor bank" << this << endl;
 		//igrok = new igrok1();
 	}
 
-	void nalog(IgroK &obj) {
+	bool nalog(IgroK &obj) {
 		long add = (obj.get_factory()*1000)+ (obj.get_automated_factory() * 1500)+ (obj.get_esm() * 300)+ (obj.get_egp() * 500);
 		long old = obj.get_money();
+		if ((old - add) < 0)return true;
 		obj.set_money(old - add);
 		//obj.print();
+		return false;
 	}
 	void start_igrok(IgroK &obj) {
 		Start_paraM param;
@@ -71,28 +74,23 @@ public:
 };
 
 
-class igra:BanK,IgroK{
-public: static void main(){
+	void main(){
 		int i = 1;
 		IgroK A,B;
 		BanK bank;
 		bank.start_igrok(A);cout << "igrok A" << endl;A.print();
 		bank.start_igrok(B);cout << "igrok B" << endl;B.print();
 	while(i!=0){
-		bank.nalog(A);
-		bank.nalog(B);
-		cout << "igrok A"<<endl;A.print();
+		if (bank.nalog(A)) { cout << "game over igrok A  "<<endl; i = 0; break; }
+		if (bank.nalog(B)) { cout << "game over igrok B  "<<endl; i = 0; break; }
+		cout << "igrok A" << endl;A.print();
 		cout << "igrok B" << endl;B.print();
-		
 		cin >> i;
 		}
 	}
-};
-
-void main() {
-	igra IgrA;
-	IgrA.main();
-}
-
-//printToConsole("Hello World!");
-//void printToConsole(string s) {cout << s << endl;}
+	/*
+		купить фабрику buy_a_factory
+		купить автоматизированную фабрику buy_an_automated_factory
+		модернизировать modernize
+		продать sell
+	*/		
