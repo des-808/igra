@@ -35,6 +35,12 @@ public:
 		cout << "money :             " << get_money() << endl;
 		cout << endl;
 	}
+	
+	//void buy_a_factory(BanK obj){
+	//	//get_
+	//}
+	
+
 };
 struct Start_paraM {
 	int factory = 2;
@@ -47,6 +53,7 @@ struct Start_paraM {
 class BanK {
 private:/// IgroK igrok; // переменная для хранения экземпляра
 public:
+	void get_factory(){}
 	~BanK(){ cout << "destructor bank" << this << endl; }
 	BanK() { // конструктор для инициализации (можно опустить)
 		cout << "constructor bank" << this << endl;
@@ -87,6 +94,7 @@ public:
 		cout << "igrok B" << endl;B.print();
 		cin >> i;
 		}
+	system("pause");
 	}
 	/*
 		купить фабрику buy_a_factory
