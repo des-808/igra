@@ -1,11 +1,5 @@
-﻿// igra.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-//
-
-#include <iostream>
+﻿#include <iostream>
 using namespace std;
-
-//void printToConsole(string s);
-
 
 class IgroK {
 	int factory = 0;
@@ -41,7 +35,7 @@ public:
 		cout << endl;
 	}
 };
-struct start_param {
+struct Start_paraM {
 	int factory = 2;
 	int automated_factory = 0;
 	int esm = 4;
@@ -49,13 +43,12 @@ struct start_param {
 	long money = 10000;
 };
 
-class bank {
+class BanK {
 //private: IgroK igrok; // переменная для хранения экземпляра
-	   
 public:
 	//bank(){}
-	~bank(){}
-	bank() { // конструктор для инициализации (можно опустить)
+	~BanK(){}
+	BanK() { // конструктор для инициализации (можно опустить)
 		//igrok = new igrok1();
 	}
 
@@ -66,43 +59,31 @@ public:
 		//obj.print();
 	}
 	void start_igrok(IgroK &obj) {
-		start_param param;
+		Start_paraM param;
 		obj.set_factory(param.factory);
 		obj.set_automated_factory(param.automated_factory);
 		obj.set_esm(param.esm);
 		obj.set_egp(param.egp);
 		obj.set_money(param.money);
 		//print_igrok(obj);
-
 	}
-
-	void print_igrok(IgroK &obj) {
-
-		obj.print();
-
-	}
+	void print_igrok(IgroK &obj) {obj.print();}
 };
 
 
-
-
-
-class igra:bank,IgroK{
+class igra:BanK,IgroK{
 public: static void main(){
 		int i = 1;
-
-		IgroK A, B;
-		bank BAnk;
-		//print_igroki(A, 1);
-		BAnk.start_igrok(A);cout << "igrok A" << endl;A.print();
-		BAnk.start_igrok(B);cout << "igrok B" << endl;B.print();
+		IgroK A,B;
+		BanK bank;
+		bank.start_igrok(A);cout << "igrok A" << endl;A.print();
+		bank.start_igrok(B);cout << "igrok B" << endl;B.print();
 	while(i!=0){
-		BAnk.nalog(A);
-		BAnk.nalog(B);
-		cout << "igrok A"<<endl;
-		A.print();
-		cout << "igrok B" << endl;
-		B.print();
+		bank.nalog(A);
+		bank.nalog(B);
+		cout << "igrok A"<<endl;A.print();
+		cout << "igrok B" << endl;B.print();
+		
 		cin >> i;
 		}
 	}
