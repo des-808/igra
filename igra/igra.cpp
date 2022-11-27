@@ -2,18 +2,7 @@
 #include <vector>
 using namespace std;
 
-class IgroK {
-	int factory = 0;
-	int automated_factory = 0;
-	int esm = 0; 
-	int egp = 0;//units of finished products
-	long money = 0;
-public:
-	int get_factory()const { return this->factory; }
-	int get_automated_factory()const { return this->automated_factory; }
-	int get_esm()const { return this->esm; }
-	int get_egp()const { return this->egp; }
-	int get_money()const { return this->money; }
+void printToConsole(string s);
 
 	void set_factory(int factory) {  this->factory = factory;  }
 	void set_automated_factory(int automated_factory) {  this->automated_factory = automated_factory;  }
