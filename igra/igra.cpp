@@ -3,29 +3,36 @@
 using namespace std;
 
 class IgroK {
+	int id = 0;
+	string name;
 	int factory = 0;
 	int automated_factory = 0;
 	int esm = 0;
 	int egp = 0;//units of finished products
 	long money = 0;
 public:
+	int get_id()const { return this->id; }
+	string get_name()const { return this->name; }
 	int get_factory()const { return this->factory; }
 	int get_automated_factory()const { return this->automated_factory; }
 	int get_esm()const { return this->esm; }
 	int get_egp()const { return this->egp; }
 	int get_money()const { return this->money; }
 
-	void set_factory(int factory) { this->factory = factory; }
-	void set_automated_factory(int automated_factory) { this->automated_factory = automated_factory; }
-	void set_esm(int esm) { this->esm = esm; }
-	void set_egp(int egp) { this->egp = egp; }
-	void set_money(int money) { this->money = money; }
+	void set_id(int id) {  this->id = id;  }
+	void set_name(string name) {  this->name = name;  }
+	void set_factory(int factory) {  this->factory = factory;  }
+	void set_automated_factory(int automated_factory) {  this->automated_factory = automated_factory;  }
+	void set_esm(int esm) {  this->esm = esm;  }
+	void set_egp(int egp) {  this->egp = egp;  }
+	void set_money(int money) {  this->money = money;  }
 
 	IgroK() {
 		cout << "constructor igrok" << this << endl;
-	}
-	~IgroK() {//деструктор класса
-		cout << "destructor igrok" << this << endl;
+}
+	IgroK(string name) { set_name(name); }
+	~IgroK(){//деструктор класса
+	cout << "destructor igrok"<< this<< endl;
 	}
 	void print() {
 		cout << "factory :           " << get_factory() << endl;
@@ -81,19 +88,31 @@ public:
 };
 
 
-void main() {
-	int i = 1;
-	IgroK A, B;
-	BanK bank;
-	bank.start_igrok(A); cout << "igrok A" << endl; A.print();
-	bank.start_igrok(B); cout << "igrok B" << endl; B.print();
-	while (i != 0) {
-		if (bank.nalog(A)) { cout << "game over igrok A  " << endl; i = 0; break; }
-		if (bank.nalog(B)) { cout << "game over igrok B  " << endl; i = 0; break; }
-		cout << "igrok A" << endl; A.print();
-		cout << "igrok B" << endl; B.print();
-		cin >> i;
-	}
+	void main(){
+		int l = 1;
+		int xz;
+		BanK bank;
+		cout << "введите число игроков :"; cin >> xz;
+		vector <IgroK> igroki_vector(xz);
+		
+		
+		for (int i = 0;i<size(igroki_vector);i++){bank.start_igrok(igroki_vector[i]); cout << "igrok "<<i << endl; igroki_vector[i].print();}
+		
+		while (l != 0) {
+			for (int i = 0; i < size(igroki_vector); i++) { 
+				if (bank.nalog(igroki_vector[i])) {
+					cout << "game over igrok "<<i<<"  " << endl; l = 0; break;
+				}
+			}
+			for (int i = 0; i < size(igroki_vector); i++){ cout << "igrok " << i << endl; igroki_vector[i].print(); }
+			cin >> l;
+				/*int xz[] = { 1,2,3,4,5,6,7,8,100500,0,0,0,1 };
+				for (int i = 0; i < size(xz); i++) {
+					if ((size(xz) - 1) !=i) { cout << xz[i] << ","; }
+					else { cout << xz[i] << endl; }
+				}*/
+		}
+		//delete[]igroki_vector;
 	system("pause");
 }
 /*
