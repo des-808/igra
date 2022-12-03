@@ -95,7 +95,7 @@ public:
 		cout << "введите число игроков :"; cin >> xz;
 		vector <IgroK> igroki_vector(xz);
 		
-		
+		 
 		for (int i = 0;i<size(igroki_vector);i++){bank.start_igrok(igroki_vector[i]); cout << "igrok "<<i << endl; igroki_vector[i].print();}
 		
 		while (l != 0) {
