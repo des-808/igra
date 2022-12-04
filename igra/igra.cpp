@@ -27,13 +27,19 @@ public:
 	void set_egp(int egp) {  this->egp = egp;  }
 	void set_money(int money) {  this->money = money;  }
 
-	IgroK() {
-		cout << "constructor igrok" << this << endl;
-}
+	IgroK() {cout << "constructor igrok" << this << endl;}
+	IgroK(int id,string name,int factory,int automated_factory,int esm,int egp,long money){
+		this->id = id;
+		this->name = name;
+		this->factory = factory;
+		this->automated_factory = automated_factory;
+		this->esm = esm;
+		this->egp = egp;
+		this->money = money;
+	}
 	IgroK(string name) { set_name(name); }
 	~IgroK(){//деструктор класса
-	cout << "destructor igrok"<< this<< endl;
-	}
+	cout << "destructor igrok"<< this<< endl;}
 	void print() {
 		cout << "factory :           " << get_factory() << endl;
 		cout << "automated_factory : " << get_automated_factory() << endl;
@@ -46,7 +52,17 @@ public:
 	//void buy_a_factory(BanK obj){
 	//	//get_
 	//}
-
+	IgroK& operator= (const IgroK& other) {// оператор присвоени¤
+		this->id = other.id;
+		this->name = other.name;
+		this->factory = other.factory;
+		this->automated_factory = other.automated_factory;
+		this->esm = other.esm;
+		this->egp = other.egp;
+		this->money = other.money;
+		//cout << "copyAssigment  " << this << endl;
+		return *this;
+	}
 
 };
 struct Start_paraM {
@@ -89,22 +105,23 @@ public:
 
 
 	void main(){
+		setlocale(LC_ALL, "Russian");
 		int l = 1;
 		int xz;
 		BanK bank;
 		cout << "введите число игроков :"; cin >> xz;
-		vector <IgroK> igroki_vector(xz);
-		
-		 
-		for (int i = 0;i<size(igroki_vector);i++){bank.start_igrok(igroki_vector[i]); cout << "igrok "<<i << endl; igroki_vector[i].print();}
-		
+		vector <IgroK> igroki_vector(xz+1);
+		IgroK player =  IgroK(0,"федя",2,1,10,12,100500);
+		player.print();
+		for (int i = 1;i<size(igroki_vector);i++){bank.start_igrok(igroki_vector[i]); /*cout << "igrok "<<i << endl; igroki_vector[i].print();*/}
+	metka:	
 		while (l != 0) {
-			for (int i = 0; i < size(igroki_vector); i++) { 
+			for (int i = 1; i < size(igroki_vector); i++) { 
 				if (bank.nalog(igroki_vector[i])) {
-					cout << "game over igrok "<<i<<"  " << endl; l = 0; break;
+					cout << "game over igrok " << i << "  " << endl; l = 0; goto metka;;
 				}
 			}
-			for (int i = 0; i < size(igroki_vector); i++){ cout << "igrok " << i << endl; igroki_vector[i].print(); }
+			for (int i = 1; i < size(igroki_vector); i++){ cout << "igrok " << i << endl; igroki_vector[i].print(); }
 			cin >> l;
 				/*int xz[] = { 1,2,3,4,5,6,7,8,100500,0,0,0,1 };
 				for (int i = 0; i < size(xz); i++) {
