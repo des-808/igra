@@ -4,7 +4,6 @@ using namespace std;
 
 class IgroK {
 	int id = 0;
-	string name;
 	int factory = 0;
 	int automated_factory = 0;
 	int esm = 0;
@@ -12,7 +11,6 @@ class IgroK {
 	long money = 0;
 public:
 	int get_id()const { return this->id; }
-	string get_name()const { return this->name; }
 	int get_factory()const { return this->factory; }
 	int get_automated_factory()const { return this->automated_factory; }
 	int get_esm()const { return this->esm; }
@@ -20,7 +18,6 @@ public:
 	int get_money()const { return this->money; }
 
 	void set_id(int id) {  this->id = id;  }
-	void set_name(string name) {  this->name = name;  }
 	void set_factory(int factory) {  this->factory = factory;  }
 	void set_automated_factory(int automated_factory) {  this->automated_factory = automated_factory;  }
 	void set_esm(int esm) {  this->esm = esm;  }
@@ -28,18 +25,16 @@ public:
 	void set_money(int money) {  this->money = money;  }
 
 	IgroK() {cout << "constructor igrok" << this << endl;}
-	IgroK(int id,string name,int factory,int automated_factory,int esm,int egp,long money){
+	IgroK(int id,int factory,int automated_factory,int esm,int egp,long money){
 		this->id = id;
-		this->name = name;
 		this->factory = factory;
 		this->automated_factory = automated_factory;
 		this->esm = esm;
 		this->egp = egp;
 		this->money = money;
 	}
-	IgroK(string name) { set_name(name); }
-	~IgroK(){//деструктор класса
-	cout << "destructor igrok"<< this<< endl;}
+	IgroK(int id) { set_id(id); }
+	~IgroK(){/*деструктор класса*/cout << "destructor igrok"<< this<< endl;}
 	void print() {
 		cout << "factory :           " << get_factory() << endl;
 		cout << "automated_factory : " << get_automated_factory() << endl;
@@ -54,7 +49,6 @@ public:
 	//}
 	IgroK& operator= (const IgroK& other) {// оператор присвоени¤
 		this->id = other.id;
-		this->name = other.name;
 		this->factory = other.factory;
 		this->automated_factory = other.automated_factory;
 		this->esm = other.esm;
@@ -76,12 +70,9 @@ struct Start_paraM {
 class BanK {
 private:/// IgroK igrok; // переменная для хранения экземпляра
 public:
-	void get_factory() {}
+	
 	~BanK() { cout << "destructor bank" << this << endl; }
-	BanK() { // конструктор для инициализации (можно опустить)
-		cout << "constructor bank" << this << endl;
-		//igrok = new igrok1();
-	}
+	BanK() { /*конструктор для инициализации(можно опустить)*/cout << "constructor bank" << this << endl;}
 
 	bool nalog(IgroK& obj) {
 		long add = (obj.get_factory() * 1000) + (obj.get_automated_factory() * 1500) + (obj.get_esm() * 300) + (obj.get_egp() * 500);
@@ -91,7 +82,7 @@ public:
 		//obj.print();
 		return false;
 	}
-	void start_igrok(IgroK& obj) {
+	void Init_igrok(IgroK& obj) {
 		Start_paraM param;
 		obj.set_factory(param.factory);
 		obj.set_automated_factory(param.automated_factory);
@@ -108,12 +99,13 @@ public:
 		setlocale(LC_ALL, "Russian");
 		int l = 1;
 		int xz;
-		BanK bank;
 		cout << "введите число игроков :"; cin >> xz;
 		vector <IgroK> igroki_vector(xz+1);
-		IgroK player =  IgroK(0,"федя",2,1,10,12,100500);
-		player.print();
-		for (int i = 1;i<size(igroki_vector);i++){bank.start_igrok(igroki_vector[i]); /*cout << "igrok "<<i << endl; igroki_vector[i].print();*/}
+		BanK bank;
+		
+		//IgroK player =  IgroK(0,"федя",2,1,10,12,100500);player.print();
+		
+		for (int i = 1;i<size(igroki_vector);i++){bank.Init_igrok(igroki_vector[i]); /*cout << "igrok "<<i << endl; igroki_vector[i].print();*/}
 	metka:	
 		while (l != 0) {
 			for (int i = 1; i < size(igroki_vector); i++) { 
@@ -123,13 +115,8 @@ public:
 			}
 			for (int i = 1; i < size(igroki_vector); i++){ cout << "igrok " << i << endl; igroki_vector[i].print(); }
 			cin >> l;
-				/*int xz[] = { 1,2,3,4,5,6,7,8,100500,0,0,0,1 };
-				for (int i = 0; i < size(xz); i++) {
-					if ((size(xz) - 1) !=i) { cout << xz[i] << ","; }
-					else { cout << xz[i] << endl; }
-				}*/
+				
 		}
-		//delete[]igroki_vector;
 	system("pause");
 }
 /*
@@ -138,3 +125,10 @@ public:
 	модернизировать modernize
 	продать sell
 */
+			/*
+			int xz[] = { 1,2,3,4,5,6,7,8,100500,0,0,0,1 };
+			for (int i = 0; i < size(xz); i++) {
+				if ((size(xz) - 1) !=i) { cout << xz[i] << ","; }	
+				else { cout << xz[i] << endl; }	
+			}
+			*/
