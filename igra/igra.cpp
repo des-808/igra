@@ -110,7 +110,7 @@ public:
 		if ( obj.get_money() < (kollvo*cena)) { return false; }
 		else {
 			obj.set_money(obj.get_money() - (kollvo * cena));
-			obj.set_esm(obj.get_esm() + kollvo);
+			obj.set_esm(obj.get_esm() + kollvo); 
 		}
 		return true;
 	}
