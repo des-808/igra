@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <vector>
+#include <iomanip>
 using namespace std;
 
 class IgroK {
@@ -44,9 +45,6 @@ public:
 		cout << endl;
 	}
 
-	//void buy_a_factory(BanK obj){
-	//	//get_
-	//}
 	IgroK& operator= (const IgroK& other) {// оператор присвоени¤
 		this->id = other.id;
 		this->factory = other.factory;
@@ -64,7 +62,7 @@ struct Start_paraM {
 	int automated_factory = 0;
 	int esm = 4;
 	int egp = 2;//units of finished products
-	long money = 10000;
+	long money = 100000;
 };
 
 class BanK {
@@ -92,25 +90,91 @@ public:
 		//print_igrok(obj);
 	}
 	void print_igrok(IgroK& obj) { obj.print(); }
+	bool buy_a_factory(IgroK& obj) { 
+		if (obj.get_factory() > 6 || obj.get_money() < 5000) { return false; }
+		else{
+		 obj.set_money(obj.get_money() - 5000);
+		 obj.set_factory(obj.get_factory() + 1);
+		}
+		return true;
+	}
+	bool buy_an_automated_factory(IgroK& obj) {
+		if (obj.get_automated_factory() > 6 || obj.get_money() < 10000) { return false; }
+		else{
+		 obj.set_money(obj.get_money() - 10000);
+		 obj.set_automated_factory(obj.get_automated_factory() + 1);
+		}
+		return true;
+	}
+	bool buy_a_ESM(IgroK& obj,int kollvo,long cena) {
+		if ( obj.get_money() < (kollvo*cena)) { return false; }
+		else {
+			obj.set_money(obj.get_money() - (kollvo * cena));
+			obj.set_esm(obj.get_esm() + kollvo);
+		}
+		return true;
+	}
+	
+	void purchase_order_ESM(IgroK& obj,int kollvo,long cena){}
 };
 
+//Уровень	ЕСМ	    Минимальная цена	ЕГП	    Максимальная цена
+double arr_urovni[5][4] = { { 1.0, 800, 3.0, 6500 },  //	1		1.0Р	800					З.ОР	6500
+							{ 1.5, 650, 2.5, 6000 },  //	2		1.5Р	650					2.5Р	6000
+							{ 2.0, 500, 2.0, 5500 },  //	3		2.0Р	500					2.0Р	5500
+							{ 2.5, 400, 1.5, 5000 },  //	4		2.5Р	400					1.5Р	5000
+							{ 3.0, 300, 1.0, 4500 } };//	5		3.0Р	300					1.0Р	4500
 
-	void main(){
-		setlocale(LC_ALL, "Russian");
-		int l = 1;
-		int xz;
-		cout << "введите число игроков :"; cin >> xz;
-		vector <IgroK> igroki_vector(xz+1);
+//Старый уровень
+// |	    |------------Новый уровень------------|
+// |	 	  1		  2		  3		  4		  5			  1 2 3 4 5
+int arr_veroyatnosti[5][5] = { { 4, 4, 2, 1, 1 },  // 1		1 / 3	1 / 3	1 / 6	1 / 12	1 / 12     1  4,4,2,1,1
+							   { 3, 4, 3, 1, 1 },  // 2		1 / 4	1 / 3	1 / 4	1 / 12	1 / 12	   2  3,4,3,1,1
+							   { 1, 3, 4, 3, 1 },  // 3		1 / 12	1 / 4	1 / 3	1 / 4	1 / 12	   3  1,3,4,3,1
+							   { 1, 1, 3, 4, 3 },  // 4		1 / 12	1 / 12	1 / 4	1 / 3	1 / 4	   4  1,1,3,4,3
+							   { 1, 1, 2, 4, 4 } };// 5		1 / 12	1 / 12	1 / 6	1 / 3	1 / 3	   5  1,1,2,4,4
+
+void main() {
+	setlocale(LC_ALL, "Russian");
+	int l = 1;
+	int xz;
+	cout << "введите число игроков :"; cin >> xz;
+	vector <IgroK> igroki_vector(xz + 1);
+	//vector <double> yrovni_cen();
+
+
 		BanK bank;
 		
 		//IgroK player =  IgroK(0,"федя",2,1,10,12,100500);player.print();
 		
-		for (int i = 1;i<size(igroki_vector);i++){bank.Init_igrok(igroki_vector[i]); /*cout << "igrok "<<i << endl; igroki_vector[i].print();*/}
+		for (int i = 0; i < 5; i++){
+			for (int j = 0; j < 4; j++) {
+				if (j == 3) { cout << setw(4) << arr_urovni[i][j] << endl; }
+				else {cout << setw(4) << arr_urovni[i][j] << ",  ";}
+			}
+		}
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 5; j++) {
+				if (j == 4) { cout << setw(1) << arr_veroyatnosti[i][j] << endl; }
+				else { cout << setw(1) << arr_veroyatnosti[i][j] << ", "; }
+			}
+		}
+		for (int i = 1;i<size(igroki_vector);i++){bank.Init_igrok(igroki_vector[i]);}
+		for (int i = 1;i<size(igroki_vector);i++){ cout << "igrok " << i << endl; bank.print_igrok(igroki_vector[i]);  /*igroki_vector[i].print();*/}
+
+		system("pause");
+		bool brr =true;
+		brr = bank.buy_a_factory(igroki_vector[2]);
+		if (brr) {for (int i = 1; i < size(igroki_vector); i++) {cout << "igrok " << i << endl; bank.print_igrok(igroki_vector[i]);}}
+		else{ cout << "косяк при покупке фабрики"; brr = true;}
+		brr = bank.buy_a_ESM(igroki_vector[2],3,300);
+		if (brr) { for (int i = 1; i < size(igroki_vector); i++) { cout << "igrok " << i << endl; bank.print_igrok(igroki_vector[i]); } }
+		else { cout << "косяк при покупке фабрики"; brr = true; }
+
 	metka:	
 		while (l != 0) {
 			for (int i = 1; i < size(igroki_vector); i++) { 
-				if (bank.nalog(igroki_vector[i])) {
-					cout << "game over igrok " << i << "  " << endl; l = 0; goto metka;;
+				if (bank.nalog(igroki_vector[i])) {cout << "game over igrok " << i << "  " << endl; l = 0; goto metka;
 				}
 			}
 			for (int i = 1; i < size(igroki_vector); i++){ cout << "igrok " << i << endl; igroki_vector[i].print(); }
@@ -123,7 +187,6 @@ public:
 	купить фабрику buy_a_factory
 	купить автоматизированную фабрику buy_an_automated_factory
 	модернизировать modernize
-	продать sell
 */
 			/*
 			int xz[] = { 1,2,3,4,5,6,7,8,100500,0,0,0,1 };
