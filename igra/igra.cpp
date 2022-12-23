@@ -142,7 +142,6 @@ void main() {
 	vector <IgroK> igroki_vector(xz + 1);
 	//vector <double> yrovni_cen();
 
-
 		BanK bank;
 		
 		//IgroK player =  IgroK(0,"федя",2,1,10,12,100500);player.print();
@@ -184,8 +183,6 @@ void main() {
 	system("pause");
 }
 /*
-	купить фабрику buy_a_factory
-	купить автоматизированную фабрику buy_an_automated_factory
 	модернизировать modernize
 */
 			/*
